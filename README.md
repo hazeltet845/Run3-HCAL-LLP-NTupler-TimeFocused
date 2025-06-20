@@ -3,10 +3,10 @@ Long-Lived Particle Ntupler based on AOD, adapted for use with HBHE rechits for 
 
 # Setup Ntupler
 ```
-cmsrel <CMSSW version> # Use CMSSW_13_2_0 for NTuples v4
+cmsrel CMSSW_13_2_0 
 mkdir cms_lpc_llp
 cd cms_lpc_llp
-git clone git@github.com:hazeltet845/Run3-HCAL-LLP-NTupler-TimeFocused.git
+git clone -b ntupler_CMSSW_13_2_0 git@github.com:hazeltet845/Run3-HCAL-LLP-NTupler-TimeFocused.git
 cd Run3-HCAL-LLP-NTupler
 git checkout -b <your-branch>
 ```
