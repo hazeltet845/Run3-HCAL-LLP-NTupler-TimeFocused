@@ -6,7 +6,7 @@ Long-Lived Particle Ntupler based on AOD, adapted for use with HBHE rechits for 
 cmsrel <CMSSW version> # Use CMSSW_13_2_0 for NTuples v4
 mkdir cms_lpc_llp
 cd cms_lpc_llp
-git clone git@github.com:kennedykiley/Run3-HCAL-LLP-NTupler.git
+git clone git@github.com:hazeltet845/Run3-HCAL-LLP-NTupler-TimeFocused.git
 cd Run3-HCAL-LLP-NTupler
 git checkout -b <your-branch>
 ```
@@ -113,6 +113,13 @@ crab_setup
 python3 CrabSubmitWrapper.py
 ```
 This handles changing the variables (isData and isSignal) in DisplacedHcalJetNTuplizer.py, as well as doing one crab submission per dataset listed. 
+
+### Running Over Phase Scan Files
+The config file was modified to remove the HLT filter and disable the noise filters (flags). The plugins were modified to add the phase delay variable `laserType` to the NTuples. Currently, NTuples can only be generated for the 2022 & 2023 phase scan data with `CMSSW_13_2_0`
+```
+cmsRun ../python/DisplacedHcalJetNTuplizer.py isData=True isSignal=False recoFromRAW=True processEvents=200 inputFiles=TestLaserNTuple_2023.txt debug=False outputFile=ntuple_output_TestLaserNTuple-v4.root
+crab submit -c <crab_cfg.py file> --dryrun
+```
 
 ### CRAB Wrapper 2 for Automating Submissions
 
