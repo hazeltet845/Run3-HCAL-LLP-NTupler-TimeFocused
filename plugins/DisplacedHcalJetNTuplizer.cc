@@ -71,6 +71,8 @@ DisplacedHcalJetNTuplizer::DisplacedHcalJetNTuplizer(const edm::ParameterSet& iC
 	// ebRecHitsToken_(consumes<edm::SortedCollection<EcalRecHit,edm::StrictWeakOrdering<EcalRecHit> > >(iConfig.getParameter<edm::InputTag>("ebRecHits"))),
 	// hcalRecHitsHBHEToken_(consumes<edm::SortedCollection<HBHERecHit,edm::StrictWeakOrdering<HBHERecHit>(edm::InputTag("reducedHcalRecHits","hbhereco"))),
 	hcalRecHitsHBHEToken_(consumes<edm::SortedCollection<HBHERecHit,edm::StrictWeakOrdering<HBHERecHit>>>( iConfig.getParameter<edm::InputTag>("hbRecHits") )),
+	uMNioToken_(consumes<HcalUMNioDigi>(iConfig.getUntrackedParameter<edm::InputTag>("taguMNio", edm::InputTag("hcalDigis")))),
+
 	// Other
 	electron_cutbasedID_decisions_loose_Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("electron_cutbasedID_decisions_loose"))),
 	electron_cutbasedID_decisions_medium_Token_(consumes<edm::ValueMap<bool> >(iConfig.getParameter<edm::InputTag>("electron_cutbasedID_decisions_medium"))),
@@ -343,6 +345,7 @@ void DisplacedHcalJetNTuplizer::loadEvent(const edm::Event& iEvent){
 	iEvent.getByToken(generalTracksToken_,generalTracks);	
 	iEvent.getByToken(secondaryVerticesToken_,secondaryVertices);	
 	iEvent.getByToken(PFCandsToken_, pfCands);
+	iEvent.getByToken(uMNioToken_, cumnio);
 
 	// Rechits
 	iEvent.getByToken(hcalRecHitsHBHEToken_, hcalRecHitsHBHE);
@@ -388,6 +391,7 @@ void DisplacedHcalJetNTuplizer::EnableBranches(){
 	EnableTrackBranches();
 	EnableSecondaryVerticesBranches();
 	EnablePFCandidateBranches();
+	EnableLaserTypeBranches();
 	// Hits
 	EnableEcalRechitBranches();
 	EnableHcalRechitBranches();
@@ -773,6 +777,12 @@ void DisplacedHcalJetNTuplizer::EnableSecondaryVerticesBranches(){
 };
 
 // ------------------------------------------------------------------------------------
+void DisplacedHcalJetNTuplizer::EnableLaserTypeBranches(){
+        output_tree->Branch( "laserType", &laserType );
+}
+
+
+// ------------------------------------------------------------------------------------
 void DisplacedHcalJetNTuplizer::EnablePFCandidateBranches(){
 
 	PFCand_BranchesEnabled = true;
@@ -951,6 +961,7 @@ void DisplacedHcalJetNTuplizer::ResetBranches(){
 	ResetTrackBranches();
 	ResetPFCandidateBranches();
 	ResetSecondaryVerticesBranches();
+	ResetLaserTypeBranches();
 	// Hits
 	ResetEcalRechitBranches();
 	ResetHcalRechitBranches();
@@ -1326,6 +1337,12 @@ void DisplacedHcalJetNTuplizer::ResetSecondaryVerticesBranches(){
 }
 
 // ------------------------------------------------------------------------------------
+void DisplacedHcalJetNTuplizer::ResetLaserTypeBranches(){
+
+        laserType.clear();
+}
+
+// ------------------------------------------------------------------------------------
 void DisplacedHcalJetNTuplizer::ResetPFCandidateBranches(){
 
 	n_PFCand = 0;
@@ -1603,6 +1620,7 @@ void DisplacedHcalJetNTuplizer::analyze(const edm::Event& iEvent, const edm::Eve
 	FillTrackBranches( iEvent ); //, iSetup );
 	//FillPFCandidateBranches( iEvent, iSetup );
 	//FillSecondaryVerticesBranches( iEvent, iSetup );
+	FillLaserTypeBranches( iEvent );
 
 	// Hits
 	FillEcalRechitBranches( iEvent, iSetup ); 
@@ -2845,6 +2863,20 @@ bool DisplacedHcalJetNTuplizer::FillSecondaryVerticesBranches( const edm::Event&
 	
 }
 
+// ------------------------------------------------------------------------------------
+bool DisplacedHcalJetNTuplizer::FillLaserTypeBranches( const edm::Event& iEvent ){
+
+        if( debug ) cout<<"Running DisplacedHcalJetNTuplizer::FillLaserTypeBranches"<<endl;
+
+        laserType.push_back(cumnio->valueUserWord(1));
+
+        if( debug ) cout<<"Done DisplacedHcalJetNTuplizer::FillLaserTypeBranches"<<endl;
+
+        return true;
+
+}
+
+// ------------------------------------------------------------------------------------
 bool DisplacedHcalJetNTuplizer::FillEcalRechitBranches(const edm::Event& iEvent, const edm::EventSetup& iSetup){
 
 	if( debug ) cout<<"Running DisplacedHcalJetNTuplizer::FillEcalRechitBranches"<<endl; 			

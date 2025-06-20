@@ -11,7 +11,7 @@ process.load("FWCore.MessageService.MessageLogger_cfi")
 process.load("Configuration.EventContent.EventContent_cff")
 
 # MET Filter Recommendations: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Run_3_2022_and_2023_data_and_MC
-process.load('cms_lpc_llp.Run3-HCAL-LLP-NTupler.metFilters_Run3_cff')
+process.load('cms_lpc_llp.Run3-HCAL-LLP-NTupler-TimeFocused.metFilters_Run3_cff')
 
 # Fix GEM Error
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
@@ -258,34 +258,34 @@ if options.recoFromRAW: # Works for 13_2_0
         throw = cms.bool(False)
     )
 
-    process.Flag_BadChargedCandidateFilter = cms.Path( process.hltFilter * process.BadChargedCandidateFilter )
-    process.Flag_BadChargedCandidateSummer16Filter = cms.Path( process.hltFilter * process.BadChargedCandidateSummer16Filter )
-    process.Flag_BadPFMuonDzFilter = cms.Path( process.hltFilter * process.BadPFMuonDzFilter )
-    process.Flag_BadPFMuonFilter = cms.Path( process.hltFilter * process.BadPFMuonFilter )
-    process.Flag_BadPFMuonSummer16Filter = cms.Path( process.hltFilter * process.BadPFMuonSummer16Filter )
-    process.Flag_CSCTightHalo2015Filter = cms.Path( process.hltFilter * process.CSCTightHalo2015Filter )
-    process.Flag_CSCTightHaloFilter = cms.Path( process.hltFilter * process.CSCTightHaloFilter )
-    process.Flag_CSCTightHaloTrkMuUnvetoFilter = cms.Path( process.hltFilter * process.CSCTightHaloTrkMuUnvetoFilter )
-    process.Flag_EcalDeadCellBoundaryEnergyFilter = cms.Path( process.hltFilter * process.EcalDeadCellBoundaryEnergyFilter )
-    process.Flag_EcalDeadCellTriggerPrimitiveFilter = cms.Path( process.hltFilter * process.EcalDeadCellTriggerPrimitiveFilter )
-    process.Flag_HBHENoiseFilter = cms.Path( process.hltFilter * process.HBHENoiseFilterResultProducer+process.HBHENoiseFilter )
-    process.Flag_HBHENoiseIsoFilter = cms.Path( process.hltFilter * process.HBHENoiseFilterResultProducer+process.HBHENoiseIsoFilter )
-    process.Flag_HcalStripHaloFilter = cms.Path( process.hltFilter * process.HcalStripHaloFilter )
-    process.Flag_chargedHadronTrackResolutionFilter = cms.Path( process.hltFilter * process.chargedHadronTrackResolutionFilter )
+    process.Flag_BadChargedCandidateFilter = cms.Path()#cms.Path( process.hltFilter * process.BadChargedCandidateFilter )
+    process.Flag_BadChargedCandidateSummer16Filter = cms.Path()#cms.Path( process.hltFilter * process.BadChargedCandidateSummer16Filter )
+    process.Flag_BadPFMuonDzFilter = cms.Path()#cms.Path( process.hltFilter * process.BadPFMuonDzFilter )
+    process.Flag_BadPFMuonFilter = cms.Path()#cms.Path( process.hltFilter * process.BadPFMuonFilter )
+    process.Flag_BadPFMuonSummer16Filter = cms.Path()#cms.Path( process.hltFilter * process.BadPFMuonSummer16Filter )
+    process.Flag_CSCTightHalo2015Filter = cms.Path()#cms.Path( process.hltFilter * process.CSCTightHalo2015Filter )
+    process.Flag_CSCTightHaloFilter = cms.Path()#cms.Path( process.hltFilter * process.CSCTightHaloFilter )
+    process.Flag_CSCTightHaloTrkMuUnvetoFilter = cms.Path()#cms.Path( process.hltFilter * process.CSCTightHaloTrkMuUnvetoFilter )
+    process.Flag_EcalDeadCellBoundaryEnergyFilter = cms.Path()#cms.Path( process.hltFilter * process.EcalDeadCellBoundaryEnergyFilter )
+    process.Flag_EcalDeadCellTriggerPrimitiveFilter = cms.Path()#cms.Path( process.hltFilter * process.EcalDeadCellTriggerPrimitiveFilter )
+    process.Flag_HBHENoiseFilter = cms.Path()#cms.Path( process.hltFilter * process.HBHENoiseFilterResultProducer+process.HBHENoiseFilter )
+    process.Flag_HBHENoiseIsoFilter = cms.Path()#cms.Path( process.hltFilter * process.HBHENoiseFilterResultProducer+process.HBHENoiseIsoFilter )
+    process.Flag_HcalStripHaloFilter = cms.Path()#cms.Path( process.hltFilter * process.HcalStripHaloFilter )
+    process.Flag_chargedHadronTrackResolutionFilter = cms.Path()#cms.Path( process.hltFilter * process.chargedHadronTrackResolutionFilter )
     process.Flag_ecalBadCalibFilter = cms.Path()
-    process.Flag_ecalLaserCorrFilter = cms.Path( process.hltFilter * process.ecalLaserCorrFilter )
-    process.Flag_eeBadScFilter = cms.Path( process.hltFilter * process.eeBadScFilter )
-    process.Flag_globalSuperTightHalo2016Filter = cms.Path( process.hltFilter * process.globalSuperTightHalo2016Filter )
-    process.Flag_globalTightHalo2016Filter = cms.Path( process.hltFilter * process.globalTightHalo2016Filter )
-    process.Flag_goodVertices = cms.Path(process.hltFilter * process.primaryVertexFilter )
-    process.Flag_hcalLaserEventFilter = cms.Path(process.hltFilter * process.hcalLaserEventFilter )
-    process.Flag_hfNoisyHitsFilter = cms.Path(process.hltFilter * process.hfNoisyHitsFilter )
-    process.Flag_muonBadTrackFilter = cms.Path(process.hltFilter * process.muonBadTrackFilter )
-    process.Flag_trackingFailureFilter = cms.Path(process.hltFilter * process.goodVertices+process.trackingFailureFilter )
-    process.Flag_trkPOGFilters = cms.Path(process.hltFilter * process.trkPOGFilters )
-    process.Flag_trkPOG_logErrorTooManyClusters = cms.Path(process.hltFilter * ~process.logErrorTooManyClusters )
-    process.Flag_trkPOG_manystripclus53X = cms.Path(process.hltFilter * ~process.manystripclus53X )
-    process.Flag_trkPOG_toomanystripclus53X = cms.Path(process.hltFilter * ~process.toomanystripclus53X )
+    process.Flag_ecalLaserCorrFilter = cms.Path()#cms.Path( process.hltFilter * process.ecalLaserCorrFilter )
+    process.Flag_eeBadScFilter = cms.Path()#cms.Path( process.hltFilter * process.eeBadScFilter )
+    process.Flag_globalSuperTightHalo2016Filter = cms.Path()#cms.Path( process.hltFilter * process.globalSuperTightHalo2016Filter )
+    process.Flag_globalTightHalo2016Filter = cms.Path()#cms.Path( process.hltFilter * process.globalTightHalo2016Filter )
+    process.Flag_goodVertices = cms.Path()#cms.Path(process.hltFilter * process.primaryVertexFilter )
+    process.Flag_hcalLaserEventFilter = cms.Path()#cms.Path(process.hltFilter * process.hcalLaserEventFilter )
+    process.Flag_hfNoisyHitsFilter = cms.Path()#cms.Path(process.hltFilter * process.hfNoisyHitsFilter )
+    process.Flag_muonBadTrackFilter = cms.Path()#cms.Path(process.hltFilter * process.muonBadTrackFilter )
+    process.Flag_trackingFailureFilter = cms.Path()#cms.Path(process.hltFilter * process.goodVertices+process.trackingFailureFilter )
+    process.Flag_trkPOGFilters = cms.Path()#cms.Path(process.hltFilter * process.trkPOGFilters )
+    process.Flag_trkPOG_logErrorTooManyClusters = cms.Path()#cms.Path(process.hltFilter * ~process.logErrorTooManyClusters )
+    process.Flag_trkPOG_manystripclus53X = cms.Path()#cms.Path(process.hltFilter * ~process.manystripclus53X )
+    process.Flag_trkPOG_toomanystripclus53X = cms.Path()#cms.Path(process.hltFilter * ~process.toomanystripclus53X )
 
 # ------ Custom Additions ------ #
 
@@ -325,7 +325,7 @@ process.DisplacedHcalJets = cms.EDAnalyzer('DisplacedHcalJetNTuplizer',
     enableGenLLPInfo = cms.bool(True),
     readGenVertexTime = cms.bool(False),#need to be false for displaced samples
     genParticles_t0 = cms.InputTag("genParticles", "t0", ""),
-    triggerPathNamesFile = cms.string("cms_lpc_llp/Run3-HCAL-LLP-NTupler/data/HLTPathsLLPJetsHCAL.dat"),
+    triggerPathNamesFile = cms.string("cms_lpc_llp/Run3-HCAL-LLP-NTupler-TimeFocused/data/HLTPathsLLPJetsHCAL.dat"),
     #triggerPathNamesFile = cms.FileInPath("/afs/cern.ch/work/k/kikenned/LLPNTupler/Run3-HCAL-LLP-NTupler/data/HLTPathsLLPJetsHCAL.dat"), #"../data/HLTPathsLLPJetsHCAL.dat"),
     #eleHLTFilterNamesFile = cms.string("SUSYBSMAnalysis/RazorTuplizer/data/RazorElectronHLTFilterNames.dat"),
     #muonHLTFilterNamesFile = cms.string("cms_lpc_llp/llp_ntupler/data/MuonHLTFilterNames.dat"),
@@ -680,8 +680,8 @@ if options.recoFromRAW:
 
     # Schedule noise filters
     process.schedule = cms.Schedule(process.Flag_HBHENoiseFilter,process.Flag_HBHENoiseIsoFilter,process.Flag_CSCTightHaloFilter,process.Flag_CSCTightHaloTrkMuUnvetoFilter,process.Flag_CSCTightHalo2015Filter,process.Flag_globalTightHalo2016Filter,process.Flag_globalSuperTightHalo2016Filter,process.Flag_HcalStripHaloFilter,process.Flag_hcalLaserEventFilter,process.Flag_EcalDeadCellTriggerPrimitiveFilter,process.Flag_EcalDeadCellBoundaryEnergyFilter,process.Flag_ecalBadCalibFilter,process.Flag_goodVertices,process.Flag_eeBadScFilter,process.Flag_ecalLaserCorrFilter,process.Flag_trkPOGFilters,process.Flag_chargedHadronTrackResolutionFilter,process.Flag_muonBadTrackFilter,process.Flag_BadChargedCandidateFilter,process.Flag_BadPFMuonFilter,process.Flag_BadPFMuonDzFilter,process.Flag_hfNoisyHitsFilter,process.Flag_BadChargedCandidateSummer16Filter,process.Flag_BadPFMuonSummer16Filter,process.Flag_trkPOG_manystripclus53X,process.Flag_trkPOG_toomanystripclus53X,process.Flag_trkPOG_logErrorTooManyClusters)
-    process.RECO     = cms.Path( process.hltFilter * process.RawToDigi * process.gtStage2Digis  * process.reconstruction ) #* process.metFiltersAll )
-    process.p        = cms.Path( process.hltFilter * process.primaryVertexAssociationLocal * process.egmGsfElectronIDSequence * process.egmPhotonIDSequence * process.NjettinessAK8CHS * process.metFiltersRecommended * process.DisplacedHcalJets )
+    process.RECO     = cms.Path( process.RawToDigi * process.gtStage2Digis  * process.reconstruction )#process.hltFilter * process.RawToDigi * process.gtStage2Digis  * process.reconstruction ) #* process.metFiltersAll )
+    process.p        = cms.Path( process.primaryVertexAssociationLocal * process.egmGsfElectronIDSequence * process.egmPhotonIDSequence * process.NjettinessAK8CHS * process.metFiltersRecommended * process.DisplacedHcalJets )#process.hltFilter * process.primaryVertexAssociationLocal * process.egmGsfElectronIDSequence * process.egmPhotonIDSequence * process.NjettinessAK8CHS * process.metFiltersRecommended * process.DisplacedHcalJets )
 
     if False: # set to true when you want to dump all reco objects
         process.dumpEverything = cms.EDAnalyzer("EventContentAnalyzer")

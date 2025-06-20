@@ -65,6 +65,7 @@ using namespace std;
 #include "DataFormats/EcalRecHit/interface/EcalRecHitCollections.h"
 #include "DataFormats/GeometryCommonDetAlgo/interface/Measurement1D.h"
 #include "DataFormats/HcalDetId/interface/HcalDetId.h"
+#include "DataFormats/HcalDigi/interface/HcalUMNioDigi.h"
 #include "DataFormats/HcalRecHit/interface/HORecHit.h"
 #include "DataFormats/HcalRecHit/interface/HcalRecHitCollections.h"
 #include "DataFormats/HcalRecHit/interface/CaloRecHitAuxSetter.h"
@@ -200,6 +201,7 @@ public:
 	void EnableTrackBranches();
 	void EnablePFCandidateBranches();
 	void EnableSecondaryVerticesBranches();
+	void EnableLaserTypeBranches();
 	// Hits
 	void EnableEcalRechitBranches();
 	void EnableHcalRechitBranches();
@@ -226,6 +228,7 @@ public:
 	void ResetTrackBranches();
 	void ResetPFCandidateBranches();
 	void ResetSecondaryVerticesBranches();
+	void ResetLaserTypeBranches();
 	// Hits
 	void ResetEcalRechitBranches();
 	void ResetHcalRechitBranches();
@@ -252,6 +255,7 @@ public:
 	bool FillTrackBranches( const edm::Event& iEvent ); 
 	bool FillPFCandidateBranches( const edm::Event& iEvent ); 
 	bool FillSecondaryVerticesBranches( const edm::Event& iEvent ); 
+	bool FillLaserTypeBranches( const edm::Event& iEvent );
 	// Hits
 	bool FillEcalRechitBranches( const edm::Event& iEvent, const edm::EventSetup& iSetup ); 
 	bool FillHcalRechitBranches( const edm::Event& iEvent, const edm::EventSetup& iSetup );
@@ -330,6 +334,7 @@ protected:
 	edm::EDGetTokenT<edm::SortedCollection<HBHERecHit,edm::StrictWeakOrdering<HBHERecHit>>> hcalRecHitsHBHEToken_;
 
 	// OTHER
+	edm::EDGetTokenT<HcalUMNioDigi> uMNioToken_;
 	edm::EDGetTokenT<edm::ValueMap<bool> > electron_cutbasedID_decisions_loose_Token_;
 	edm::EDGetTokenT<edm::ValueMap<bool> > electron_cutbasedID_decisions_medium_Token_;
 	edm::EDGetTokenT<edm::ValueMap<bool> > electron_cutbasedID_decisions_tight_Token_;	
@@ -419,7 +424,8 @@ protected:
 	edm::Handle<std::vector<reco::Track>> generalTracks;
 	edm::Handle<vector<reco::VertexCompositePtrCandidate> > secondaryVertices;
 	edm::Handle<reco::PFCandidateCollection> pfCands;
- 
+	edm::Handle<HcalUMNioDigi> cumnio;
+
 	// Rechits
 	edm::Handle<edm::SortedCollection<HBHERecHit,edm::StrictWeakOrdering<HBHERecHit>>> hcalRecHitsHBHE;
 	edm::Handle<edm::SortedCollection<EcalRecHit,edm::StrictWeakOrdering<EcalRecHit>>> ebRecHits;
@@ -874,6 +880,9 @@ protected:
 	vector<int>   PFCand_TrackIndex;
 	vector<int>   PFCand_GeneralTrackIndex;
 	vector<int>   PFCand_PVIndex;
+
+	// ------ LaserType ------ //
+	vector<int>   laserType;
 
 	// ------------------------------------------------------------------------------------
 	// RecHits
