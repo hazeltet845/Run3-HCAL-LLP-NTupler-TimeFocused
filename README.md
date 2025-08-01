@@ -102,7 +102,8 @@ edmDumpEventContent root://cmsxrootd.fnal.gov/</store/path/to/file.root> > EDM_c
 ```
 
 ### Running Over Phase Scan Files
-The config file was modified to remove the HLT filter and disable the noise filters (flags). The plugins were modified to add the phase delay variable `laserType` to the NTuples. Currently, NTuples can only be generated for the 2022 & 2023 phase scan data with `CMSSW_13_2_0`
+The config file was modified to remove the HLT filter and disable the noise filters (flags). The plugins were modified to add the phase delay variable `laserType` to the NTuples. NTuples can be generated for the 2022 & 2023 phase scan data with `CMSSW_13_2_0`. Ntuples can be generated for the 2025 Phase scan data with `CMSSW_15_0_6`. Successfully ran using a crab job over the phase scan files located here `/store/group/dpg_hcal/comm_hcal/QIEPhaseScan2025/` using the `python/crab_DisplacedHcalJetNTuplizer_local_cfg.py` crab config file. 
+
 ```
 cmsRun ../python/DisplacedHcalJetNTuplizer.py isData=True isSignal=False recoFromRAW=True processEvents=200 inputFiles=TestLaserNTuple_2023.txt debug=False outputFile=ntuple_output_TestLaserNTuple-v4.root
 crab submit -c <crab_cfg.py file> --dryrun
