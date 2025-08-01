@@ -22,51 +22,17 @@ from CRABClient.UserUtilities import config
 number = 0 # starting at 0 -> refers to datasetnames # number wrapper
 
 # List of possible datasets
-datasetnames = ['/JetMET0/Run2025C-v1/RAW']# dataset wrapper
-"""
-'/DisplacedJet/Run2023B-EXOLLPJetHCAL-PromptReco-v1/AOD', # 0
-'/DisplacedJet/Run2023C-EXOLLPJetHCAL-PromptReco-v1/AOD',
-'/DisplacedJet/Run2023C-EXOLLPJetHCAL-PromptReco-v2/AOD',
-'/DisplacedJet/Run2023C-EXOLLPJetHCAL-PromptReco-v3/AOD',
-'/DisplacedJet/Run2023C-EXOLLPJetHCAL-PromptReco-v4/AOD',
-'/DisplacedJet/Run2023D-EXOLLPJetHCAL-PromptReco-v1/AOD',
-'/DisplacedJet/Run2023D-EXOLLPJetHCAL-PromptReco-v2/AOD',
-'/JetMET1/Run2023A-EXOHighMET-PromptReco-v2/RAW-RECO',    # 7
-'/JetMET1/Run2023B-EXOHighMET-PromptReco-v1/RAW-RECO',
-'/JetMET1/Run2023C-EXOHighMET-PromptReco-v1/RAW-RECO',
-'/JetMET1/Run2023C-EXOHighMET-PromptReco-v2/RAW-RECO',
-'/JetMET1/Run2023C-EXOHighMET-PromptReco-v3/RAW-RECO',
-'/JetMET1/Run2023C-EXOHighMET-PromptReco-v4/RAW-RECO',
-'/JetMET1/Run2023D-EXOHighMET-PromptReco-v1/RAW-RECO',
-'/JetMET1/Run2023D-EXOHighMET-PromptReco-v2/RAW-RECO', # 14
-'/Muon0/Run2023A-ZMu-PromptReco-v2/RAW-RECO', # no events, do not submit! 
-'/Muon0/Run2023B-ZMu-PromptReco-v1/RAW-RECO',
-'/Muon0/Run2023C-ZMu-PromptReco-v1/RAW-RECO',
-'/Muon0/Run2023C-ZMu-PromptReco-v2/RAW-RECO',
-'/Muon0/Run2023C-ZMu-PromptReco-v3/RAW-RECO',
-'/Muon0/Run2023C-ZMu-PromptReco-v4/RAW-RECO',
-'/Muon0/Run2023D-ZMu-PromptReco-v1/RAW-RECO', # 21
-'/Muon0/Run2023D-ZMu-PromptReco-v2/RAW-RECO',
-'/Muon1/Run2023A-ZMu-PromptReco-v2/RAW-RECO',
-'/Muon1/Run2023B-ZMu-PromptReco-v1/RAW-RECO',
-'/Muon1/Run2023C-ZMu-PromptReco-v1/RAW-RECO',
-'/Muon1/Run2023C-ZMu-PromptReco-v2/RAW-RECO',
-'/Muon1/Run2023C-ZMu-PromptReco-v3/RAW-RECO',
-'/Muon1/Run2023C-ZMu-PromptReco-v4/RAW-RECO', # 28
-'/Muon1/Run2023D-ZMu-PromptReco-v1/RAW-RECO',
-'/Muon1/Run2023D-ZMu-PromptReco-v2/RAW-RECO'
-]
-"""
+datasetnames = ['/JetMET1/Run2025C-v1/RAW']# dataset wrapper
 
 datasetblock = [
 #'/DisplacedJet/Run2023C-EXOLLPJetHCAL-PromptReco-v4/AOD#0882cc9a-f2ab-4626-992e-c787a9d5017c' # in 2023C v4
 ]
 
 # runrange = '362085,362087' # Nov2022 Phase Scan
-runrange = '392175,392194,392196'
+#runrange = '392175,392194,392196'
 
 # JSON files for lumiMask are available at: /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/
-lumimask = '/eos/user/e/ethazelt/projects/LLPNTupler_timeFocused/CMSSW_15_0_6/src/cms_lpc_llp/Run3-HCAL-LLP-NTupler-TimeFocused/python/lumimask_PhaseScan2025.json'
+lumimask = ''#'/eos/user/e/ethazelt/projects/LLPNTupler_timeFocused/CMSSW_15_0_6/src/cms_lpc_llp/Run3-HCAL-LLP-NTupler-TimeFocused/python/lumimask_PhaseScan2025.json'
 
 # Storage path for output files - EOS specific
 #storagepath = '/store/user/'+getUsernameFromSiteDB()+'/HCALnoise2016'
@@ -81,7 +47,7 @@ psetname = 'DisplacedHcalJetNTuplizer.py'
 storageSite = 'T2_US_Wisconsin' # no write access to: 'T2_CH_CERN'
 
 # White list sites
-whiteList = ['T2_CH_CERN','T2_US_Caltech','T2_US_Florida', 'T2_US_MIT', 'T2_US_Nebraska', 'T2_US_Purdue', 'T2_US_UCSD', 'T2_US_Vanderbilt', 'T2_US_Wisconsin', 'T1_US_FNAL','T2_US_MIT','T1_FR_CCIN2P3']
+whiteList = ['T2_US_Caltech','T2_US_Florida', 'T2_US_MIT', 'T2_US_Nebraska', 'T2_US_Purdue', 'T2_US_UCSD', 'T2_US_Vanderbilt', 'T2_US_Wisconsin', 'T1_US_FNAL','T2_US_MIT','T1_FR_CCIN2P3']
 # ['T2_US_UCSD']
 
 # Black list sites
@@ -100,7 +66,7 @@ dataset = list(dataset)
 config = config()
 
 # General
-config.General.workArea        = 'crab_LLPNtupler_JetMET0_Run2025C-v1_RAW_392175_94_96' # workArea wrapper
+config.General.workArea        = 'crab_LLPNtupler_JetMET1_Run2025C-v1_RAW_392175_94_96' # workArea wrapper
 config.General.instance        = 'prod'
 config.General.requestName     = 'LLPNtupler'+'_'+dataset[0]+'_'+dataset[1]+'_'+dataset[2]+timestamp  # requestName wrapper
 config.General.transferOutputs = True
@@ -111,23 +77,22 @@ config.JobType.pluginName  = 'Analysis'
 config.JobType.psetName    = psetname
 #config.JobType.outputFiles = [OutputFilename]
 #config.JobType.pyCfgParams = ['outputFile='+OutputFilename]
+config.JobType.maxMemoryMB = 3500
+config.JobType.maxJobRuntimeMin = 1980
 
 # Data
 # four below lines for standard dataset input
-config.Data.inputDataset     = datasetnames[number]
-config.Data.inputBlocks      = datasetblock
+config.Data.inputDataset     = ''
+config.Data.userInputFiles   = open('/eos/user/e/ethazelt/projects/LLPNTupler_timeFocused/CMSSW_15_0_6/src/cms_lpc_llp/Run3-HCAL-LLP-NTupler-TimeFocused/python/local_JetMET1_PS2025.txt').readlines()
 config.Data.inputDBS         = 'global'
-config.Data.splitting        = 'Automatic' #'LumiBased'
-# for single file test (3 below lines)
-#config.Data.userInputFiles    = ['/store/data/Run2023C/DisplacedJet/AOD/EXOLLPJetHCAL-PromptReco-v4/000/367/881/00000/36ade28b-f320-4680-9dab-57ce2b536531.root']
-#config.Data.splitting         = 'FileBased'
-#config.Data.unitsPerJob       = 1
-#config.Data.totalUnits       = 1
+config.Data.splitting        = 'FileBased'
+config.Data.unitsPerJob      = 1
 config.Data.ignoreLocality   = True
 config.Data.publication      = False
 config.Data.outputDatasetTag = 'LLPNtupler'+'_'+dataset[1]+'_'+dataset[2]+timestamp # outputDatasetTag wrapper
+config.Data.outputPrimaryDataset = 'JetMET1'
 
-config.Data.runRange        =  runrange
+#config.Data.runRange        =  '1'
 if lumimask != '':
   config.Data.lumiMask        = lumimask
 

@@ -22,21 +22,21 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 options = VarParsing.VarParsing()
 
 options.register('isData',
-    False, # default value # isData wrapper
+    True, # default value # isData wrapper
     VarParsing.VarParsing.multiplicity.singleton,
     VarParsing.VarParsing.varType.bool,
     "is Data"
 )
 
 options.register('isSignal',
-    True, # default value # isSignal wrapper
+    False, # default value # isSignal wrapper
     VarParsing.VarParsing.multiplicity.singleton,
     VarParsing.VarParsing.varType.bool,
     "is Signal"
 )
 
 options.register('recoFromRAW',
-    False,
+    True,
     VarParsing.VarParsing.multiplicity.singleton,
     VarParsing.VarParsing.varType.bool,
     "run reconstruction from RAW (only for *L1SingleLLPJet* triggers)"
@@ -83,6 +83,7 @@ print(" ")
 print("Using options:")
 print(f" isData        ={options.isData}")
 print(f" isSignal      ={options.isSignal}")
+print(f" recoFromRAW   ={options.recoFromRAW}")
 print(f" skipEvents    ={options.skipEvents}")
 print(f" processEvents ={options.processEvents}")
 print(f" inputFiles    ={options.inputFiles}")
@@ -156,7 +157,7 @@ process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cf
 
 # ------ Declare the correct global tag ------ #
 
-if options.isData: process.GlobalTag = GlobalTag(process.GlobalTag, '124X_dataRun3_v15', '') # auto:run3_data
+if options.isData: process.GlobalTag = GlobalTag(process.GlobalTag, '150X_dataRun3_Prompt_v1', '')
 else:              process.GlobalTag = GlobalTag(process.GlobalTag,'auto:run3_mc_FULL','')
 
 # ------ Declare Output ------ #
@@ -213,10 +214,10 @@ if options.recoFromRAW: # Works for 13_2_0
     process.load('RecoMET.METFilters.metFilters_cff')
 
     process.options = cms.untracked.PSet(
-        FailPath = cms.untracked.vstring(),
+        #FailPath = cms.untracked.vstring(),
         IgnoreCompletely = cms.untracked.vstring(),
         Rethrow = cms.untracked.vstring(),
-        SkipEvent = cms.untracked.vstring(),
+        #SkipEvent = cms.untracked.vstring(),
         accelerators = cms.untracked.vstring('*'),
         allowUnscheduled = cms.obsolete.untracked.bool,
         canDeleteEarly = cms.untracked.vstring(),
